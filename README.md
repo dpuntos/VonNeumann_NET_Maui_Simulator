@@ -1,7 +1,7 @@
 # VonNeumann_NET_Maui_Simulator
 Application developed in C# .NET Maui wich implements a simple Von Neumann architecture simulator.
 ## Description
-John von Neumann defined a first design of computer architectures. It has some complexity but is perfect for introducing to the knowledge of modern computers.
+John von Neumann defined a first design of computer architectures. It has some complexity but is perfect for introducing to the knowledge of modern computers.<br>
 There is a lot of information about this computer and multiple simulators to understand how it works. However, the objective of this small project is
 develop a simulator with .NET Maui wich works for multiple platforms (Windows, Android, IOs...) and of course, have fun!
 
@@ -11,10 +11,10 @@ develop a simulator with .NET Maui wich works for multiple platforms (Windows, A
 </p>
 
 ## Von Neumann Computer 
-It is the core of the project. It is made up of the CPU, ALU and Memory.<br>
+The core of the project. It is made up of the CPU, ALU and Memory.<br>
 First of all, the program that has to be executed is read. When the CPU instance is created, it generates memory of the size necessary to store all instructions.
-The memory is made up of 8-bit cells.
-CPU is the responsible for reading the instructions in memory, decoding them, determining what type of operation must be performed and ordering the ALU to execute said operation.
+The memory is made up of 8-bit cells.<br>
+CPU is the responsible for reading the instructions in memory, decoding them, determining what type of operation must be performed and ordering the ALU to execute said operation.<br>
 It is also responsible for updating the different typical registers in this architecture: Accumulator, Program Counter or Instruction Register.
 <p align="center">
   <img src="../main/Neumann.png">
