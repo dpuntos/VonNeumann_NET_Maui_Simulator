@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:VonNeumann.MauiSample"
+             xmlns:templates="clr-namespace:VonNeumann.MauiSample.Templates"
+             x:Class="VonNeumann.MauiSample.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:VonNeumannViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <local:ByteToBinaryStringConverter x:Key="ByteToBin" />
+        <local:ByteToHexadecimalConverter x:Key="ByteToHex"/>
+        <local:ByteToDecimalConverter x:Key="ByteToDec"/>
+        <DataTemplate x:Key="CurrentInstructionTemplate">
+            <ViewCell>
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0">
+                        <Label Text="{Binding Index}" Padding="10" BackgroundColor="SlateGray" WidthRequest="40" />
+                    </Border>
+                    <Border Grid.Column="1">
+                        <VerticalStackLayout WidthRequest="140" Padding="10,0,0,0" >
+                            <Label
+                                Text="{Binding Code, Converter={StaticResource ByteToBin}}"
+                                FontFamily="Digital7"
+                                FontSize="28"
+                                FontAttributes="Bold" />
+                            <HorizontalStackLayout>
+                                <Label                  
+                                    Text="{Binding Code, Converter={StaticResource ByteToDec}}"
+                                    FontAttributes="Italic"
+                                    FontSize="14"
+                                    VerticalOptions="End" />
+                                <Label                  
+                                    Padding="10,0,0,0"  
+                                    Text="{Binding Code, Converter={StaticResource ByteToHex}}"
+                                    FontAttributes="Italic"
+                                    FontSize="14"       
+                                    VerticalOptions="End" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="NotCurrentInstructionTemplate">
+            <ViewCell>
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0">
+                        <Label Text="{Binding Index}" Padding="10" BackgroundColor="LightGray" WidthRequest="40" />
+                    </Border>
+                    <Border Grid.Column="1">
+                        <VerticalStackLayout WidthRequest="140" Padding="10,0,0,0" >
+                            <Label
+                                Text="{Binding Code, Converter={StaticResource ByteToBin}}"
+                                FontFamily="Digital7"
+                                FontSize="28"
+                                FontAttributes="Bold" />
+                            <HorizontalStackLayout>
+                                <Label                  
+                                    Text="{Binding Code, Converter={StaticResource ByteToDec}}"
+                                    FontAttributes="Italic"
+                                    FontSize="14"
+                                    VerticalOptions="End" />
+                                <Label
+                                    Padding="10,0,0,0"
+                                    Text="{Binding Code, Converter={StaticResource ByteToHex}}"
+                                    FontAttributes="Italic"
+                                    FontSize="14"
+                                    VerticalOptions="End" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <templates:MemoryListViewSelector x:Key="MemorySelector"
+                                          CurrentInstruction="{StaticResource CurrentInstructionTemplate}"
+                                          NotCurrentInstruction="{StaticResource NotCurrentInstructionTemplate}" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <HorizontalStackLayout>
+                <Entry
+                    x:Name="EntryInstructionsFilePath"
+                    Placeholder="Instructions text file..."
+                    Text="{Binding InstructionsFilePath}"
+                    IsReadOnly="True"
+                    SemanticProperties.Description="Instructions text file" />
+                <ImageButton
+                    Source="instfile.png"
+                    HeightRequest="64"
+                    Aspect="Fill"
+                    Clicked="ImageButton_Clicked"
+                    SemanticProperties.Description="rom type file icon" >
+                </ImageButton>
+            </HorizontalStackLayout>
+            <Button
+                Text="Auto"
+                BackgroundColor="DarkslateGray"
+                SemanticProperties.Hint="Execute program auto"
+                Command="{Binding LoadInstructionsCommand}"
+                HorizontalOptions="Fill">
+            </Button>
+            <Button
+                Text="Fetch"                 
+                BackgroundColor="DarkslateGray"
+                SemanticProperties.Hint="Execute program fetch"
+                Command="{Binding FetchInstructionsCommand}"
+                HorizontalOptions="Fill">
+            </Button>
+            <HorizontalStackLayout>
+                <Border>
+                    <ListView SelectionMode="None" ItemsSource="{Binding Instructions}"
+                              ItemTemplate="{StaticResource MemorySelector}" >
+                        <ListView.Header>
+                            <StackLayout BackgroundColor="LightGray" HorizontalOptions="Fill">
+                                <Label Text="MEMORY" FontSize="18" FontAttributes="Bold" />
+                            </StackLayout>
+                        </ListView.Header>
+                    </ListView>
+                </Border>
+
+                <Border Margin="40,0,0,0">
+                    <VerticalStackLayout>
+                        <Label Text="CPU"
+                               BackgroundColor="LightGray"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill" />
+                        <Border>
+                            <HorizontalStackLayout Padding="10,20,0,0">
+                                <Label
+                                    Text="PC"
+                                    WidthRequest="40"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                <VerticalStackLayout WidthRequest="140" Padding="10,0,0,0" >
+                                    <Label
+                                        Text="{Binding ProgramCounter, Converter={StaticResource ByteToBin}}"
+                                        FontFamily="Digital7"
+                                        FontSize="28"
+                                        FontAttributes="Bold"/>
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            Text="{Binding ProgramCounter, Converter={StaticResource ByteToDec}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            Padding="10,0,0,0"
+                                            Text="{Binding ProgramCounter, Converter={StaticResource ByteToHex}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border>
+                            <HorizontalStackLayout Padding="10,20,0,0">
+                                <Label
+                                    Text="IR"
+                                    WidthRequest="40"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                <VerticalStackLayout WidthRequest="140" Padding="10,0,0,0" >
+                                    <Label
+                                        Text="{Binding InstructionRegister, Converter={StaticResource ByteToBin}}"
+                                        FontFamily="Digital7"
+                                        FontSize="28"
+                                        FontAttributes="Bold" />
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            Text="{Binding InstructionRegister, Converter={StaticResource ByteToDec}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            Padding="10,0,0,0"
+                                            Text="{Binding InstructionRegister, Converter={StaticResource ByteToHex}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border>
+                            <HorizontalStackLayout Padding="10,20,0,0">
+                                <Label
+                                    Text="ACC"
+                                    WidthRequest="40"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                <VerticalStackLayout WidthRequest="140" Padding="10,0,0,0" >
+                                    <Label
+                                        Text="{Binding Accumulator, Converter={StaticResource ByteToBin}}"
+                                        FontFamily="Digital7"
+                                        FontSize="28"
+                                        FontAttributes="Bold" />
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            Text="{Binding Accumulator, Converter={StaticResource ByteToDec}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            Padding="10,0,0,0"
+                                            Text="{Binding Accumulator, Converter={StaticResource ByteToHex}}"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            VerticalOptions="End" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border>
+                            <HorizontalStackLayout Padding="10,20,0,0">
+                                <Label  
+                                    Text="OP"
+                                    WidthRequest="40"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                <Label
+                                    Padding="10,0,0,0"
+                                    Text="{Binding OperationCode}"
+                                    WidthRequest="80"
+                                    FontFamily="Digital7"
+                                    FontSize="28"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
