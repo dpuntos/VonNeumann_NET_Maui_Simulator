@@ -40,3 +40,18 @@ The framework used is MSTests.
 <p align="center">
   <img src="../main/UnitTest.png">
 </p>
+
+## Sample
+A file "Instructions.txt" has been added that contains the following program:
+00000100 //ADD:  ACC = ACC + MEM[4]  --> ACC  = 7
+00010101 //SUB:  ACC = ACC - MEM[5]  --> ACC  = 6
+01100111 //MEM:  MEM[7] = ACC        --> MEM[7] = 6
+01110000 //HALT: Stop the program
+00000111
+00000001
+00000000
+00000000
+
+
+
+
