@@ -11,7 +11,7 @@ develop a simulator with .NET Maui wich works for multiple platforms (Windows, A
 </p>
 
 ## Von Neumann Computer 
-It is the core of the project. It is made up of the CPU, ALU and Memory.
+It is the core of the project. It is made up of the CPU, ALU and Memory.<br>
 First of all, the program that has to be executed is read. When the CPU instance is created, it generates memory of the size necessary to store all instructions.
 The memory is made up of 8-bit cells.
 CPU is the responsible for reading the instructions in memory, decoding them, determining what type of operation must be performed and ordering the ALU to execute said operation.
@@ -22,9 +22,6 @@ It is also responsible for updating the different typical registers in this arch
 
 ## Console Application
 This is a small console application that is used to quickly execute a program on the Von Neumann computer.
-<p align="center">
-  <img src="../main/Console.png">
-</p>
 
 ## .NET Maui Application
 Similar to console, this application offers a rich user interface where you can select a file with the instructions to execute and run the program automatically (1 instruction/sec) or step by step.
@@ -37,9 +34,6 @@ Using the same source code, .NET Maui allows you to generate the application for
 ## Unit Testing Layer
 There is not much to comment, it is a set of Unit Tests to guarantee the integrity and quality of the software.
 The framework used is MSTests.
-<p align="center">
-  <img src="../main/UnitTest.png">
-</p>
 
 ## Sample
 A file "Instructions.txt" has been added that contains the following program:
