@@ -17,7 +17,7 @@ The memory is made up of 8-bit cells.
 CPU is the responsible for reading the instructions in memory, decoding them, determining what type of operation must be performed and ordering the ALU to execute said operation.
 It is also responsible for updating the different typical registers in this architecture: Accumulator, Program Counter or Instruction Register.
 <p align="center">
-  <img src="../main/VonNeumann.png">
+  <img src="../main/Neumann.png">
 </p>
 
 ## Console Application
