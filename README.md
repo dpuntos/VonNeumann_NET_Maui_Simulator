@@ -10,7 +10,7 @@ develop a simulator with .NET Maui wich works for multiple platforms (Windows, A
   <img src="../main/Diagram.png">
 </p>
 
-## Von Nuemann Computer 
+## Von Neumann Computer 
 It is the core of the project. It is made up of the CPU, ALU and Memory.
 First of all, the program that has to be executed is read. When the CPU instance is created, it generates memory of the size necessary to store all instructions.
 The memory is made up of 8-bit cells.
