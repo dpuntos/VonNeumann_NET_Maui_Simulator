@@ -32,6 +32,7 @@ According .NET Maui best practices, this component is developed under the MVVM p
 <p align="center">
   <img src="../main/NeumannMaui.png">
 </p>
+
 ## Unit Testing Layer
 There is not much to comment, it is a set of Unit Tests to guarantee the integrity and quality of the software.<br>
 The framework used is MSTests.
