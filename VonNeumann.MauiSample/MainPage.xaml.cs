@@ -12,7 +12,10 @@
             var customFileType = new FilePickerFileType(
                new Dictionary<DevicePlatform, IEnumerable<string>>
                {
-                    { DevicePlatform.WinUI, new[] { ".txt" } }, // file extension
+                   { DevicePlatform.iOS, new[] { "public.text" } }, // UTType values  
+                   { DevicePlatform.Android, new[] { "text/plain" } }, // MIME type  
+                   { DevicePlatform.WinUI, new[] { ".txt" } }, // file extension  
+                   { DevicePlatform.macOS, new[] { "txt" } },
                });
 
             PickOptions options = new()
